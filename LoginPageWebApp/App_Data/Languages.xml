@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Languages>
+	<Text Key="WelcomeText">
+		<en>Welcome</en>
+		<hi>स्वागत</hi>
+		<fr>Bienvenue</fr>
+	</Text>
+	<Text Key="LoginBtn">
+		<en>Login</en>
+		<hi>लॉगिन</hi>
+		<fr>Connexion</fr>
+	</Text>
+	<Text Key="UsernameLabel">
+		<en>Username</en>
+		<hi>उपयोगकर्ता नाम</hi>
+		<fr>Nom d'utilisateur</fr>
+	</Text>
+	<Text Key="PasswordLabel">
+		<en>Password</en>
+		<hi>पासवर्ड</hi>
+		<fr>Mot de passe</fr>
+	</Text>
+	<Text Key="RoleAssignmentTitle">
+		<en>Role Assignment</en>
+		<hi>भूमिका असाइनमेंट</hi>
+		<fr>Attribution de rôle</fr>
+	</Text>
+	<Text Key="AssignBtn">
+		<en>Assign Role</en>
+		<hi>भूमिका असाइन करें</hi>
+		<fr>Attribuer le rôle</fr>
+	</Text>
+</Languages>

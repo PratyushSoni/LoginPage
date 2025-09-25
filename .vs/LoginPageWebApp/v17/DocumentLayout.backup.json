@@ -1,7 +1,36 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpageapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|solutionrelative:loginpageapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpageapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|solutionrelative:loginpageapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpageapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|solutionrelative:loginpageapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpagewebapp\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\loginpagewebapp\\web.sitemap||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\web.sitemap||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\loginpagewebapp\\pages\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\pages\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\loginpagewebapp\\pages\\home.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\pages\\home.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +47,94 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageAPI\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "LoginPageAPI\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageAPI\\Properties\\launchSettings.json",
+              "RelativeToolTip": "LoginPageAPI\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-25T09:49:00.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "LoginPageAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageAPI\\appsettings.json",
+              "RelativeToolTip": "LoginPageAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-25T09:48:39.902Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageAPI\\Program.cs",
+              "RelativeDocumentMoniker": "LoginPageAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageAPI\\Program.cs",
+              "RelativeToolTip": "LoginPageAPI\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T09:48:37.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Site.Master.cs",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Site.Master.cs",
+              "RelativeDocumentMoniker": "LoginPageWebApp\\Site.Master.cs",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Site.Master.cs",
+              "RelativeToolTip": "LoginPageWebApp\\Site.Master.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T09:37:50.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Home.aspx",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\Home.aspx",
+              "RelativeDocumentMoniker": "LoginPageWebApp\\Pages\\Home.aspx",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\Home.aspx",
+              "RelativeToolTip": "LoginPageWebApp\\Pages\\Home.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-09-25T09:35:43.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.aspx",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\Login.aspx",
+              "RelativeDocumentMoniker": "LoginPageWebApp\\Pages\\Login.aspx",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\Login.aspx",
+              "RelativeToolTip": "LoginPageWebApp\\Pages\\Login.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-09-25T09:35:22.421Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Web.sitemap",
+              "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Web.sitemap",
+              "RelativeDocumentMoniker": "LoginPageWebApp\\Web.sitemap",
+              "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Web.sitemap",
+              "RelativeToolTip": "LoginPageWebApp\\Web.sitemap",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002838|",
+              "WhenOpened": "2025-09-25T09:29:53.403Z"
             }
           ]
         },
