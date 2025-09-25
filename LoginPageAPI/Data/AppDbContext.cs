@@ -1,6 +1,14 @@
-﻿namespace LoginPageAPI.Data
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using LoginPageAPI.Models;
+
+namespace LoginPageAPI.Data
 {
-    public class AppDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
     }
 }

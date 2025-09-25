@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LoginPageWebApp.Pages.Login" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LoginPageWebApp.Pages.Login" %>
 
 <%@ Register Src="~/Controls/ValidationSummaryReusable.ascx" TagPrefix="uc1" TagName="ValidationSummaryReusable" %>
 
@@ -92,14 +92,14 @@
                     <uc1:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
                 </div>
                 <div class="form-group">
-                    <label for="<%= txtUsername.ClientID %>">Username</label>
+                    <asp:Label ID="lblUsername" runat="server" AssociatedControlID="txtUsername" Text="Username"></asp:Label>
                     <asp:TextBox ID="txtUsername" runat="server" CssClass="text-input" />
                     <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername"
                         ErrorMessage="Username is required" Display="None" />
                 </div>
 
                 <div class="form-group">
-                    <label for="<%= txtPassword.ClientID %>">Password</label>
+                    <asp:Label ID="lblPassword" runat="server" AssociatedControlID="txtPassword" Text="Password"></asp:Label>
                     <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="text-input" />
                     <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
                         ErrorMessage="Password is required" Display="None" />

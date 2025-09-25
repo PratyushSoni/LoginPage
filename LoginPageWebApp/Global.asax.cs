@@ -17,5 +17,20 @@ namespace LoginPageWebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        {
+            if (Context.User?.Identity != null && Context.User.Identity.IsAuthenticated)
+            {
+                var roles = Session["Roles"] as string[];
+                if (roles != null)
+                {
+                    var identity = new System.Security.Principal.GenericIdentity(Context.User.Identity.Name);
+                    var principal = new System.Security.Principal.GenericPrincipal(identity, roles);
+                    Context.User = principal;
+                }
+            }
+        }
+
+
     }
 }
