@@ -11,6 +11,12 @@ namespace LoginPageWebApp
             {
                 ShowAdminLink();
             }
+
+            // Optionally set the dropdown to the current language
+            if (!IsPostBack && Session["CurrentCulture"] != null)
+            {
+                ddlLanguage.SelectedValue = Session["CurrentCulture"].ToString();
+            }
         }
 
         private void ShowAdminLink()
@@ -24,6 +30,13 @@ namespace LoginPageWebApp
             {
                 hlRoleAssignment.Visible = true;
             }
+        }
+
+        protected void ddlLanguage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedLang = ddlLanguage.SelectedValue;
+            Session["CurrentCulture"] = selectedLang;
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
     }
 }

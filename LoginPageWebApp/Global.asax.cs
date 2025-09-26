@@ -6,6 +6,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Globalization;
+using System.Threading;
 
 namespace LoginPageWebApp
 {
@@ -19,9 +21,20 @@ namespace LoginPageWebApp
         }
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
+            // Set culture for language selection
+            if (Context.Handler is IRequiresSessionState && Session != null && Session["CurrentCulture"] != null)
+            {
+                var culture = Session["CurrentCulture"].ToString();
+                try
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+                }
+                catch { }
+            }
             if (Context.User?.Identity != null && Context.User.Identity.IsAuthenticated)
             {
-                var roles = Session["Roles"] as string[];
+                var roles = (Session != null) ? Session["Roles"] as string[] : null;
                 if (roles != null)
                 {
                     var identity = new System.Security.Principal.GenericIdentity(Context.User.Identity.Name);
@@ -30,7 +43,5 @@ namespace LoginPageWebApp
                 }
             }
         }
-
-
     }
 }

@@ -63,6 +63,15 @@
                         <DynamicMenuStyle CssClass="dropdown-menu" />
                         <DynamicMenuItemStyle CssClass="dropdown-item" />
                     </asp:Menu>
+
+                    <!-- Language Dropdown -->
+                    <div class="d-flex align-items-center ms-auto">
+                        <asp:DropDownList ID="ddlLanguage" runat="server" AutoPostBack="true" CssClass="form-select form-select-sm ms-2" OnSelectedIndexChanged="ddlLanguage_SelectedIndexChanged">
+                            <asp:ListItem Value="en" Text="English" />
+                            <asp:ListItem Value="hi" Text="हिन्दी" />
+                            <asp:ListItem Value="fr" Text="Français" />
+                        </asp:DropDownList>
+                    </div>
                 </div>
             </div>
         </nav>

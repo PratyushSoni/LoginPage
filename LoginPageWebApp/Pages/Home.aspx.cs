@@ -18,7 +18,7 @@ namespace LoginPageWebApp.Pages
             if (!IsPostBack)
             {
                 string username = Session["Username"]?.ToString();
-                lblWelcome.Text = $"Welcome, {username}!";
+                lblWelcome.Text = string.Format("{0}, {1}!", GetGlobalResourceObject("SharedResource", "Welcome"), username);
                 lblUser.Text = username;
 
                 var roles = Session["Roles"] as string[];
@@ -26,7 +26,7 @@ namespace LoginPageWebApp.Pages
                 {
                     btnCreateUser.Visible = true;
                 }
-            }
+            }       
         }
 
         protected void lnkSignOut_Click(object sender, EventArgs e)

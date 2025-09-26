@@ -1,12 +1,7 @@
-﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LoginPageWebApp.Pages.Login" %>
-
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.master" Async="true" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LoginPageWebApp.Pages.Login" %>
 <%@ Register Src="~/Controls/ValidationSummaryReusable.ascx" TagPrefix="uc1" TagName="ValidationSummaryReusable" %>
 
-<!DOCTYPE html>
-<html>
-<head runat="server">
-    <meta charset="utf-8" />
-    <title>Login</title>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
         html, body {
             height: 100%;
@@ -82,35 +77,30 @@
             font-size: 12px;
         }
     </style>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="login-container">
-            <div class="login-box">
-                <h2>Sign in</h2>
-                <div class="val-summary">
-                    <uc1:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
-                </div>
-                <div class="form-group">
-                    <asp:Label ID="lblUsername" runat="server" AssociatedControlID="txtUsername" Text="Username"></asp:Label>
-                    <asp:TextBox ID="txtUsername" runat="server" CssClass="text-input" />
-                    <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername"
-                        ErrorMessage="Username is required" Display="None" />
-                </div>
+    <div class="login-container">
+        <div class="login-box">
+            <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, SignIn %>" /></h2>
+            <div class="val-summary">
+                <uc1:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
+            </div>
+            <div class="form-group">
+                <asp:Label ID="lblUsername" runat="server" AssociatedControlID="txtUsername" Text="<%$ Resources:SharedResource, Username %>"></asp:Label>
+                <asp:TextBox ID="txtUsername" runat="server" CssClass="text-input" />
+                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername"
+                    ErrorMessage="<%$ Resources:SharedResource, UsernameRequired %>" Display="None" />
+            </div>
 
-                <div class="form-group">
-                    <asp:Label ID="lblPassword" runat="server" AssociatedControlID="txtPassword" Text="Password"></asp:Label>
-                    <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="text-input" />
-                    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
-                        ErrorMessage="Password is required" Display="None" />
-                </div>
+            <div class="form-group">
+                <asp:Label ID="lblPassword" runat="server" AssociatedControlID="txtPassword" Text="<%$ Resources:SharedResource, Password %>"></asp:Label>
+                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="text-input" />
+                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
+                    ErrorMessage="<%$ Resources:SharedResource, PasswordRequired %>" Display="None" />
+            </div>
 
 
-                <div class="form-actions">
-                    <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn btn-primary" OnClick="btnLogin_Click" />
-                </div>
+            <div class="form-actions">
+                <asp:Button ID="btnLogin" runat="server" Text="<%$ Resources:SharedResource, Login %>" CssClass="btn btn-primary" OnClick="btnLogin_Click" />
             </div>
         </div>
-    </form>
-</body>
-</html>
+    </div>
+</asp:Content>

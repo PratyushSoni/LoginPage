@@ -51,7 +51,11 @@ C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\roslyn\vbc.rsp
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\roslyn\VBCSCompiler.exe
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Antlr3.Runtime.dll
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.dll
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.SqlServer.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.FriendlyUrls.dll
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.ScriptManager.MSAjax.dll
@@ -68,6 +72,10 @@ C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\System.Threading.T
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\System.Web.Http.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\System.Web.Optimization.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\WebGrease.dll
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.xml
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.SqlServer.xml
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Newtonsoft.Json.Bson.pdb
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Newtonsoft.Json.Bson.xml
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\System.Buffers.xml
@@ -87,11 +95,3 @@ C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWeb
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPag.8CF590F0.Up2Date
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.pdb
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.dll
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.SqlServer.dll
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.Core.dll
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.EntityFramework.dll
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.xml
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\EntityFramework.SqlServer.xml
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.Core.xml
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.Identity.EntityFramework.xml

@@ -1,10 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="LoginPageWebApp.Pages.Home" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="LoginPageWebApp.Pages.Home" %>
 
-<!DOCTYPE html>
-<html>
-<head runat="server">
-    <meta charset="utf-8" />
-    <title>Home</title>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
         body {
             font-family: Arial;
@@ -69,25 +65,22 @@
             opacity: 0.9;
         }
     </style>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="header">
-            <h2>Home</h2>
-            <div class="user-menu">
-                <span><asp:Label ID="lblUser" runat="server" /></span>
-                <div class="dropdown">
-                    <asp:LinkButton ID="lnkSignOut" runat="server" OnClick="lnkSignOut_Click">Sign Out</asp:LinkButton>
-                </div>
+    <div class="header">
+        <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, Home %>" /></h2>
+        <div class="user-menu">
+            <span><asp:Label ID="lblUser" runat="server" /></span>
+            <div class="dropdown">
+                <asp:LinkButton ID="lnkSignOut" runat="server" OnClick="lnkSignOut_Click">
+                    <asp:Literal runat="server" Text="<%$ Resources:SharedResource, SignOut %>" />
+                </asp:LinkButton>
             </div>
         </div>
+    </div>
 
-        <div class="content">
-            <asp:Label ID="lblWelcome" runat="server" Font-Size="Large" />
+    <div class="content">
+        <asp:Label ID="lblWelcome" runat="server" Font-Size="Large" />
 
-            <br /><br />
-            <asp:Button ID="btnCreateUser" runat="server" Text="Create User" CssClass="btn" Visible="false" />
-        </div>
-    </form>
-</body>
-</html>
+        <br /><br />
+        <asp:Button ID="btnCreateUser" runat="server" Text="<%$ Resources:SharedResource, CreateUser %>" CssClass="btn" Visible="false" />
+    </div>
+</asp:Content>
