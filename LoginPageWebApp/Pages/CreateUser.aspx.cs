@@ -133,8 +133,14 @@ namespace LoginPageWebApp.Pages
                 {
                     smtp.Send(mail);
                 }
+                // Save as .txt if email sending succeeds
+                string txtDir = Server.MapPath("~/App_Data/");
+                if (!Directory.Exists(txtDir)) Directory.CreateDirectory(txtDir);
+                string txtPath = Path.Combine(txtDir, $"SetPassword_{Guid.NewGuid()}.txt");
+                File.WriteAllText(txtPath, $"To: {email}\r\nSubject: {mail.Subject}\r\n\r\n{mail.Body}");
+
                 lblMessage.ForeColor = System.Drawing.Color.Green;
-                lblMessage.Text = "User created and email sent!";
+                lblMessage.Text = $"User created and email sent! Email content saved at: {txtPath}";
                 // Clear errors on success
                 ValidationSummary1.ClearErrors();
             }

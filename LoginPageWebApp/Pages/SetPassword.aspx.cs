@@ -4,6 +4,8 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
+using System.Net.Mail;
+using System.IO;
 
 namespace LoginPageWebApp.Pages
 {
@@ -34,8 +36,8 @@ namespace LoginPageWebApp.Pages
                 // Only allow access with a valid token
                 if (string.IsNullOrEmpty(Token) || PendingEmail == null || PendingUsername == null)
                 {
-                    lblMessage.Text = "Invalid or expired token. Please request a new set password link.";
-                    DisableForm();
+                    Response.Redirect("~/Pages/AccessDenied.aspx");
+                    return;
                 }
             }
         }
@@ -102,10 +104,36 @@ namespace LoginPageWebApp.Pages
                     }
                 }
 
+                // Send confirmation email and save as .txt only
+                string txtDir = Server.MapPath("~/App_Data/");
+                if (!Directory.Exists(txtDir)) Directory.CreateDirectory(txtDir);
+                string txtPath = Path.Combine(txtDir, $"SetPassword_{Guid.NewGuid()}.txt");
+                var mail = new MailMessage("no-reply@yourapp.com", email)
+                {
+                    Subject = "Your password has been set",
+                    Body = $"Hello {username},\n\nYour password has been set successfully. You can now log in."
+                };
+                try
+                {
+                    // Send email only, do not use pickup directory
+                    using (var smtp = new SmtpClient())
+                    {
+                        smtp.Send(mail);
+                    }
+                    // Save as .txt for logging
+                    File.WriteAllText(txtPath, $"To: {email}\r\nSubject: {mail.Subject}\r\n\r\n{mail.Body}");
+
+                    lblMessage.ForeColor = System.Drawing.Color.Green;
+                    lblMessage.Text = $"Password set successfully! Your account is now active. Email content saved at: {txtPath}";
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    lblMessage.Text = "Email could not be sent or saved as .txt. Error: " + ex.Message;
+                }
+
                 // Success: clear session and show success
                 Session.Remove("SetPasswordToken_" + Token);
-                lblMessage.ForeColor = System.Drawing.Color.Green;
-                lblMessage.Text = "Password set successfully! Your account is now active.";
                 DisableForm();
             }
             catch (Exception ex)
