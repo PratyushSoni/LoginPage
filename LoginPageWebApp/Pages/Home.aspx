@@ -81,6 +81,6 @@
         <asp:Label ID="lblWelcome" runat="server" Font-Size="Large" />
 
         <br /><br />
-        <asp:Button ID="btnCreateUser" runat="server" Text="<%$ Resources:SharedResource, CreateUser %>" CssClass="btn" Visible="false" />
+        <asp:Button ID="btnCreateUser" runat="server" Text="<%$ Resources:SharedResource, CreateUser %>" OnClick="btnCreateUser_Click" CssClass="btn" Visible="false" />
     </div>
 </asp:Content>

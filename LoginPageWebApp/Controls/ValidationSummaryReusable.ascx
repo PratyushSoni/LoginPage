@@ -23,62 +23,35 @@
 <asp:Panel ID="pnlValidationSummary" runat="server" CssClass="validation-summary-container" Visible="true">
     <asp:Label ID="lblHeader" runat="server" Text="Please fix the following errors:" CssClass="summary-header" />
     <ul id="ulValidationSummary" runat="server"></ul>
+    <asp:CustomValidator ID="cvServerError" runat="server" Display="None" EnableClientScript="false" />
 </asp:Panel>
 
-
 <script type="text/javascript">
-    function buildValidationSummary() {
+    document.addEventListener('DOMContentLoaded', function () {
         var ul = document.getElementById('<%= ulValidationSummary.ClientID %>');
-        if (!ul) return;
-        ul.innerHTML = "";
-
-        if (typeof (Page_Validators) !== "undefined") {
-            for (var i = 0; i < Page_Validators.length; i++) {
-                var v = Page_Validators[i];
-                if (!v.isvalid && v.errormessage) {
-                    var ctlId = v.controltovalidate;
-
-                    var li = document.createElement("li");
-                    li.textContent = v.errormessage;
-                    li.setAttribute("data-target", ctlId);
-
-                    li.onclick = function () {
-                        var target = this.getAttribute("data-target");
-                        var ctl = document.getElementById(target);
-                        if (ctl) {
-                            ctl.focus();
-                            ctl.scrollIntoView({ behavior: "smooth", block: "center" });
+        var controlIds = '<%= TargetControlClientID %>'.split(',');
+        var usernameInputId = controlIds[0];
+        var emailInputId = controlIds.length > 1 ? controlIds[1] : null;
+        if (ul) {
+            ul.addEventListener('click', function (e) {
+                var li = e.target;
+                if (li.tagName === 'LI') {
+                    var text = li.textContent || li.innerText || '';
+                    if (text.toLowerCase().indexOf('email') !== -1 && emailInputId) {
+                        var emailInput = document.getElementById(emailInputId);
+                        if (emailInput) {
+                            emailInput.focus();
+                            emailInput.scrollIntoView({ behavior: "smooth", block: "center" });
                         }
-                    };
-
-                    ul.appendChild(li);
+                    } else if (usernameInputId) {
+                        var usernameInput = document.getElementById(usernameInputId);
+                        if (usernameInput) {
+                            usernameInput.focus();
+                            usernameInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }
+                    }
                 }
-            }
+            });
         }
-
-        var panel = document.getElementById('<%= pnlValidationSummary.ClientID %>');
-        if (panel) {
-            panel.style.display = ul.children.length > 0 ? 'block' : 'none';
-        }
-    }
-
-    // Run once on page load
-    window.addEventListener("load", buildValidationSummary);
-
-    // Run after each validation cycle
-    if (typeof (Page_ClientValidate) !== "undefined") {
-        var oldValidate = Page_ClientValidate;
-        Page_ClientValidate = function (validationGroup) {
-            var result = oldValidate(validationGroup);
-            setTimeout(buildValidationSummary, 50);
-            return result;
-        };
-    }
-
-    // Run after async postbacks too (UpdatePanel support)
-    if (typeof (Sys) !== "undefined" && Sys.WebForms && Sys.WebForms.PageRequestManager) {
-        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
-            buildValidationSummary();
-        });
-    }
+    });
 </script>

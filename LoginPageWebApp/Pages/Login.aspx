@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.master" Async="true" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LoginPageWebApp.Pages.Login" %>
+
 <%@ Register Src="~/Controls/ValidationSummaryReusable.ascx" TagPrefix="uc1" TagName="ValidationSummaryReusable" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -25,10 +26,10 @@
             border-radius: 8px;
         }
 
-            .login-box h2 {
+        .login-box h2 {
                 text-align: center;
                 margin-bottom: 18px;
-            }
+        }
 
         .form-group {
             margin-bottom: 14px;
@@ -79,7 +80,9 @@
     </style>
     <div class="login-container">
         <div class="login-box">
-            <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, SignIn %>" /></h2>
+            <h2>
+                <asp:Literal runat="server" Text="<%$ Resources:SharedResource, SignIn %>" /></h2>
+            <asp:ValidationSummary ID="vsServer" runat="server" ShowSummary="true" ShowMessageBox="false" CssClass="validation-summary-container" />
             <div class="val-summary">
                 <uc1:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
             </div>
@@ -103,4 +106,20 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            var summary = document.getElementById('<%= vsServer.ClientID %>');
+            if (summary) {
+                summary.addEventListener('click', function (e) {
+                    if (e.target && e.target.tagName === 'LI') {
+                        var username = document.getElementById('<%= txtUsername.ClientID %>');
+                        if (username) {
+                            username.focus();
+                            username.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </asp:Content>

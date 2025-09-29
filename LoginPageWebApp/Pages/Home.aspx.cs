@@ -26,7 +26,7 @@ namespace LoginPageWebApp.Pages
                 {
                     btnCreateUser.Visible = true;
                 }
-            }       
+            }
         }
 
         protected void lnkSignOut_Click(object sender, EventArgs e)
@@ -34,6 +34,11 @@ namespace LoginPageWebApp.Pages
             Session.Clear();
             Session.Abandon();
             Response.Redirect("~/Pages/Login.aspx");
+        }
+
+        protected void btnCreateUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/CreateUser.aspx");
         }
     }
 }

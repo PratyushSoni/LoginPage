@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.Security;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Web.UI.WebControls;
 
 namespace LoginPageWebApp.Pages
 {
@@ -24,6 +25,7 @@ namespace LoginPageWebApp.Pages
 
         protected async void btnLogin_Click(object sender, EventArgs e)
         {
+            ValidationSummary1.ClearErrors();
             ValidationSummary1.ValidatePage();
             if (!ValidationSummary1.PageIsValid) return;
 
@@ -40,7 +42,17 @@ namespace LoginPageWebApp.Pages
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    ValidationSummary1.AddError("Invalid username or password.");
+                    // Only add to built-in ValidationSummary
+                    var cv = new CustomValidator
+                    {
+                        IsValid = false,
+                        ErrorMessage = "Username or password is incorrect.",
+                        Display = ValidatorDisplay.None,
+                        EnableClientScript = false,
+                        ControlToValidate = txtUsername.ID
+                    };
+                    Page.Validators.Add(cv);
+                    txtUsername.Focus();
                     return;
                 }
 
@@ -67,7 +79,16 @@ namespace LoginPageWebApp.Pages
             }
             catch (Exception ex)
             {
-                ValidationSummary1.AddError("Error: " + ex.Message);
+                var cv = new CustomValidator
+                {
+                    IsValid = false,
+                    ErrorMessage = "Error: " + ex.Message,
+                    Display = ValidatorDisplay.None,
+                    EnableClientScript = false,
+                    ControlToValidate = txtUsername.ID
+                };
+                Page.Validators.Add(cv);
+                txtUsername.Focus();
             }
         }
     }

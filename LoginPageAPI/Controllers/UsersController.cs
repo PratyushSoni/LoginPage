@@ -172,5 +172,30 @@ namespace LoginPageAPI.Controllers
             var roles = _roleManager.Roles.Select(r => r.Name).ToList();
             return Ok(roles);
         }
+
+        // GET: api/users/check?username=...&email=...
+        [HttpGet("check")]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<IActionResult> CheckUserExists([FromQuery] string username, [FromQuery] string email)
+        {
+            try
+            {
+                bool usernameExists = false;
+                bool emailExists = false;
+
+                if (!string.IsNullOrWhiteSpace(username))
+                    usernameExists = await _userManager.FindByNameAsync(username) != null;
+
+                if (!string.IsNullOrWhiteSpace(email))
+                    emailExists = await _userManager.FindByEmailAsync(email) != null;
+
+                return Ok(new { usernameExists, emailExists });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (for now, return it in the response for debugging)
+                return StatusCode(500, new { error = ex.Message, stack = ex.StackTrace });
+            }
+        }
     }
 }

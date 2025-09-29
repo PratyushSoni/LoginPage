@@ -1,3 +1,5 @@
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.csproj.AssemblyReference.cache
+C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.csproj.CoreCompileInputs.cache
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\LoginPageWebApp.dll.config
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\LoginPageWebApp.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\LoginPageWebApp.pdb
@@ -90,8 +92,6 @@ C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Newtonsoft.Json.xm
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Antlr3.Runtime.pdb
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.csproj.AssemblyReference.cache
-C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.csproj.CoreCompileInputs.cache
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPag.8CF590F0.Up2Date
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.dll
 C:\Users\Pratyush\Desktop\LoginPageWebApp\LoginPageWebApp\obj\Debug\LoginPageWebApp.pdb
