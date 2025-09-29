@@ -7,6 +7,8 @@ using System.Web.Security;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Web.UI.WebControls;
+using System.IdentityModel.Tokens.Jwt; // Only this is needed for JWT parsing
+using System.Linq;
 
 namespace LoginPageWebApp.Pages
 {
@@ -16,6 +18,48 @@ namespace LoginPageWebApp.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Silent login via token in URL
+            string urlToken = Request.QueryString["token"];
+            if (!string.IsNullOrEmpty(urlToken))
+            {
+                try
+                {
+                    // Decode JWT to get username (sub claim)
+                    var handler = new JwtSecurityTokenHandler();
+                    var jwt = handler.ReadJwtToken(urlToken);
+                    var username = jwt.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+                    if (!string.IsNullOrEmpty(username))
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", urlToken);
+                        var userInfoResponse = httpClient.GetAsync($"https://localhost:7201/api/users/{username}").Result;
+                        if (userInfoResponse.IsSuccessStatusCode)
+                        {
+                            var userInfoJson = userInfoResponse.Content.ReadAsStringAsync().Result;
+                            var userInfo = JObject.Parse(userInfoJson);
+                            string user = userInfo["username"]?.ToString();
+                            string email = userInfo["email"]?.ToString();
+                            // Try to get roles from token first, fallback to empty
+                            var roles = jwt.Claims.Where(c => c.Type == "role" || c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Select(c => c.Value).ToArray();
+                            if (roles.Length == 0 && userInfo["roles"] != null)
+                                roles = userInfo["roles"].ToObject<string[]>();
+                            if (roles != null && Array.Exists(roles, r => r.Equals("Admin", StringComparison.OrdinalIgnoreCase)))
+                            {
+                                // Store in Session
+                                Session["JwtToken"] = urlToken;
+                                Session["Username"] = user;
+                                Session["Email"] = email;
+                                Session["Roles"] = roles;
+                                FormsAuthentication.SetAuthCookie(user, false);
+                                Response.Redirect("~/Pages/Home.aspx", false);
+                                Context.ApplicationInstance.CompleteRequest();
+                                return;
+                            }
+                        }
+                    }
+                }
+                catch { /* Ignore and fall through to normal login */ }
+            }
+
             // Already logged in? Redirect
             if (Session["JwtToken"] != null)
             {
