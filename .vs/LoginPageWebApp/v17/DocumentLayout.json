@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\pages\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpagewebapp\\pages\\setpassword.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\pages\\setpassword.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpagewebapp\\pages\\createuser.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\pages\\createuser.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpagewebapp\\pages\\setpassword.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B25A601-56DC-4A77-AACF-97ED4FBD7C81}|LoginPageWebApp\\LoginPageWebApp.csproj|solutionrelative:loginpagewebapp\\pages\\setpassword.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0AC44929-0F57-46F0-8A3B-1F54158CD193}|LoginPageAPI\\LoginPageAPI.csproj|c:\\users\\pratyush\\desktop\\loginpagewebapp\\loginpageapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -118,26 +118,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SetPassword.aspx.cs",
               "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\SetPassword.aspx.cs",
               "RelativeDocumentMoniker": "LoginPageWebApp\\Pages\\SetPassword.aspx.cs",
               "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\SetPassword.aspx.cs",
               "RelativeToolTip": "LoginPageWebApp\\Pages\\SetPassword.aspx.cs",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAhwGcAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAIwLAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-29T09:46:26.204Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "CreateUser.aspx.cs",
               "DocumentMoniker": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\CreateUser.aspx.cs",
               "RelativeDocumentMoniker": "LoginPageWebApp\\Pages\\CreateUser.aspx.cs",
               "ToolTip": "C:\\Users\\Pratyush\\Desktop\\LoginPageWebApp\\LoginPageWebApp\\Pages\\CreateUser.aspx.cs",
               "RelativeToolTip": "LoginPageWebApp\\Pages\\CreateUser.aspx.cs",
-              "ViewState": "AgIAAJcAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJ0AAAAAAAAAAADwv7QAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-29T09:32:52.737Z",
               "EditorCaption": ""

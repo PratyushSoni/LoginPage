@@ -28,6 +28,18 @@ namespace LoginPageWebApp.Pages
                 return val != null && val.Contains("|") ? val.Split('|')[1] : null;
             }
         }
+        protected string PendingRole
+        {
+            get
+            {
+                var email = PendingEmail;
+                if (!string.IsNullOrEmpty(email) && email.EndsWith("@pathlock.com", StringComparison.OrdinalIgnoreCase))
+                {
+                    return "Admin";
+                }
+                return "User";
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -85,7 +97,7 @@ namespace LoginPageWebApp.Pages
                         Username = username,
                         Email = email,
                         Password = password,
-                        Role = "User"
+                        Role = PendingRole
                     };
                     var json = JsonConvert.SerializeObject(payload);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
