@@ -114,8 +114,8 @@ namespace LoginPageWebApp.Pages
             // Generate a unique token
             string token = Guid.NewGuid().ToString();
 
-            // Store the token and email in Session (for demo; use DB in production)
-            Session["SetPasswordToken_" + token] = email;
+            // Store the token, username, and email in Session (for demo; use DB in production)
+            Session["SetPasswordToken_" + token] = username + "|" + email;
 
             // Build the set password link
             string setPasswordUrl = $"{Request.Url.GetLeftPart(UriPartial.Authority)}/Pages/SetPassword.aspx?token={token}";

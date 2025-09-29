@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SetPassword.aspx.cs" Inherits="LoginPageWebApp.Pages.SetPassword" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Async="true" CodeBehind="SetPassword.aspx.cs" Inherits="LoginPageWebApp.Pages.SetPassword" %>
 
 <!DOCTYPE html>
 
