@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LoginPageAPI.Controllers
 {
@@ -87,88 +90,9 @@ namespace LoginPageAPI.Controllers
                     Email = user.Email
                 };
 
-                _cache.Set(cacheKey, response, TimeSpan.FromMinutes(10));
+                _cache.Set(cacheKey, response, System.TimeSpan.FromMinutes(10));
             }
             return Ok(response);
-        }
-
-        // POST: api/users/login
-        // 🔓 Public endpoint (no auth needed)
-        [HttpPost("login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginDto dto)
-        {
-            var user = await _userManager.FindByNameAsync(dto.Username);
-            if (user == null)
-            {
-                _logger.LogWarning("Login failed: user '{Username}' not found.", dto.Username);
-                return Unauthorized("Invalid username or password");
-            }
-
-            var passwordValid = await _userManager.CheckPasswordAsync(user, dto.Password);
-            if (!passwordValid)
-            {
-                _logger.LogWarning("Login failed: invalid password for user '{Username}'.", dto.Username);
-                return Unauthorized("Invalid username or password");
-            }
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var token = await _tokenService.GenerateJwtTokenAsync(user, roles);
-            return Ok(new
-            {
-                token,
-                username = user.UserName,
-                email = user.Email,
-                roles
-            });
-        }
-
-        // POST: api/users/assignrole
-        // 🔒 Only Admin can assign roles
-        [HttpPost("assignrole")]
-        [Authorize(Policy = "RequireAdminRole")]
-        public async Task<IActionResult> AssignRole([FromBody] AssignRoleDto dto)
-        {
-            if (dto == null || string.IsNullOrEmpty(dto.UserId) || string.IsNullOrEmpty(dto.Role))
-                return BadRequest("UserId and Role are required.");
-
-            var user = await _userManager.FindByIdAsync(dto.UserId);
-            if (user == null)
-                return NotFound("User not found.");
-
-            var roleExists = await _roleManager.RoleExistsAsync(dto.Role);
-            if (!roleExists)
-                return BadRequest($"Role '{dto.Role}' does not exist.");
-
-            var userRoles = await _userManager.GetRolesAsync(user);
-            if (userRoles.Contains(dto.Role))
-                return BadRequest($"User already has role '{dto.Role}'.");
-
-            var result = await _userManager.AddToRoleAsync(user, dto.Role);
-            if (result.Succeeded)
-            {
-                // Remove user cache if exists
-                _cache.Remove($"user:{user.UserName}");
-                // Remove roles cache
-                _cache.Remove("roles:list");
-                return Ok($"Role '{dto.Role}' assigned to user '{user.UserName}'.");
-            }
-            return BadRequest(result.Errors.Select(e => e.Description));
-        }
-
-        // GET: api/users/roles
-        // 🔒 Admin-only
-        [HttpGet("roles")]
-        [Authorize(Policy = "RequireAdminRole")]
-        public IActionResult GetRoles()
-        {
-            var cacheKey = "roles:list";
-            if (!_cache.TryGetValue<List<string>>(cacheKey, out var roles))
-            {
-                roles = _roleManager.Roles.Select(r => r.Name).ToList();
-                _cache.Set(cacheKey, roles, TimeSpan.FromMinutes(30));
-            }
-            return Ok(roles);
         }
 
         // GET: api/users/check?username=...&email=...
@@ -189,7 +113,7 @@ namespace LoginPageAPI.Controllers
 
                 return Ok(new { usernameExists, emailExists });
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 // Log the exception (for now, return it in the response for debugging)
                 return StatusCode(500, new { error = ex.Message, stack = ex.StackTrace });

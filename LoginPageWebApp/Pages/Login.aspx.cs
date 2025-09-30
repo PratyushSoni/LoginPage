@@ -82,7 +82,7 @@ namespace LoginPageWebApp.Pages
 
             try
             {
-                var response = await httpClient.PostAsync("https://localhost:7201/api/users/login", content);
+                var response = await httpClient.PostAsync("https://localhost:7201/api/auth/login", content);
 
                 if (!response.IsSuccessStatusCode)
                 {

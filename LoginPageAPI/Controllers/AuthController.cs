@@ -37,7 +37,13 @@ namespace LoginPageAPI.Controllers
 
             var roles = await _userManager.GetRolesAsync(user);
             var token = await _tokenService.GenerateJwtTokenAsync(user, roles);
-            return Ok(new { token });
+            return Ok(new
+            {
+                token,
+                username = user.UserName,
+                email = user.Email,
+                roles
+            });
         }
     }
 }
