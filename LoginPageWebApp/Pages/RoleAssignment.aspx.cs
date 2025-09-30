@@ -12,7 +12,8 @@ namespace LoginPageWebApp.Pages
 {
     public partial class RoleAssignment : Page
     {
-        private static readonly string apiBaseUrl = "https://localhost:7201/api/users"; // Your API URL
+        private static readonly string apiBaseUrl = "https://localhost:7201/api/users";
+        private static readonly string apiRolesUrl = "https://localhost:7201/api/roles";
         private List<string> allRoles = new List<string>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -49,7 +50,7 @@ namespace LoginPageWebApp.Pages
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 // Fetch all roles from API
-                var rolesResponse = await client.GetAsync(apiBaseUrl + "/roles");
+                var rolesResponse = await client.GetAsync(apiRolesUrl);
                 if (rolesResponse.IsSuccessStatusCode)
                 {
                     var rolesJson = await rolesResponse.Content.ReadAsStringAsync();
@@ -57,7 +58,7 @@ namespace LoginPageWebApp.Pages
                 }
                 else
                 {
-                    allRoles = new List<string> { "User", "Manager", "Admin" };
+                    allRoles = new List<string> { "F" };
                 }
                 // Fetch all users
                 var response = await client.GetAsync(apiBaseUrl + "/all");

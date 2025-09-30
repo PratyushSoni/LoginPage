@@ -67,7 +67,7 @@
         }
     </style>
     <div class="header">
-        <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, Home %>" /></h2>
+        <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, Home Page %>" /></h2>
         <div class="user-menu">
             <span><asp:Label ID="lblUser" runat="server" /></span>
             <div class="dropdown">
@@ -84,6 +84,6 @@
         <br /><br />
         <asp:Button ID="btnCreateUser" runat="server" Text="<%$ Resources:SharedResource, CreateUser %>" OnClick="btnCreateUser_Click" CssClass="btn" Visible="false" />
         <br />
-        <asp:Button ID="btnRoleAssignment" runat="server" Text="Role Assignment" OnClick="btnRoleAssignment_Click" CssClass="btn" Visible="false" />
+        <asp:Button ID="btnRoleAssignment" runat="server" Text="<%$ Resources:SharedResource, RoleAssignmentTitle %>" OnClick="btnRoleAssignment_Click" CssClass="btn" Visible="false" />
     </div>
 </asp:Content>

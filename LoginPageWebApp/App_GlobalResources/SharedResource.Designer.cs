@@ -59,5 +59,278 @@ namespace Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        internal static string Action {
+            get {
+                return ResourceManager.GetString("Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign Role.
+        /// </summary>
+        internal static string AssignRole {
+            get {
+                return ResourceManager.GetString("AssignRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create User.
+        /// </summary>
+        internal static string CreateUser {
+            get {
+                return ResourceManager.GetString("CreateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create User.
+        /// </summary>
+        internal static string CreateUser_Button {
+            get {
+                return ResourceManager.GetString("CreateUser_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email:.
+        /// </summary>
+        internal static string CreateUser_Email {
+            get {
+                return ResourceManager.GetString("CreateUser_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create User.
+        /// </summary>
+        internal static string CreateUser_Heading {
+            get {
+                return ResourceManager.GetString("CreateUser_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username:.
+        /// </summary>
+        internal static string CreateUser_Username {
+            get {
+                return ResourceManager.GetString("CreateUser_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page.
+        /// </summary>
+        internal static string Home_Page {
+            get {
+                return ResourceManager.GetString("Home Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required.
+        /// </summary>
+        internal static string PasswordRequired {
+            get {
+                return ResourceManager.GetString("PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role Assignment.
+        /// </summary>
+        internal static string RoleAssignmentTitle {
+            get {
+                return ResourceManager.GetString("RoleAssignmentTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Password.
+        /// </summary>
+        internal static string SetPassword_Button {
+            get {
+                return ResourceManager.GetString("SetPassword_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password:.
+        /// </summary>
+        internal static string SetPassword_ConfirmPassword {
+            get {
+                return ResourceManager.GetString("SetPassword_ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Your Password.
+        /// </summary>
+        internal static string SetPassword_Heading {
+            get {
+                return ResourceManager.GetString("SetPassword_Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password:.
+        /// </summary>
+        internal static string SetPassword_Password {
+            get {
+                return ResourceManager.GetString("SetPassword_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign in.
+        /// </summary>
+        internal static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        internal static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username is required.
+        /// </summary>
+        internal static string UsernameRequired {
+            get {
+                return ResourceManager.GetString("UsernameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        internal static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        internal static string EmailRequired {
+            get {
+                return ResourceManager.GetString("EmailRequired", resourceCulture);
+            }
+        }
+        
+        internal static string UserCheckError {
+            get {
+                return ResourceManager.GetString("UserCheckError", resourceCulture);
+            }
+        }
+        
+        internal static string UsernameAndEmailExist {
+            get {
+                return ResourceManager.GetString("UsernameAndEmailExist", resourceCulture);
+            }
+        }
+        
+        internal static string UsernameExists {
+            get {
+                return ResourceManager.GetString("UsernameExists", resourceCulture);
+            }
+        }
+        
+        internal static string EmailExists {
+            get {
+                return ResourceManager.GetString("EmailExists", resourceCulture);
+            }
+        }
+        
+        internal static string UserCheckException {
+            get {
+                return ResourceManager.GetString("UserCheckException", resourceCulture);
+            }
+        }
+        
+        internal static string SetPasswordEmailSubject {
+            get {
+                return ResourceManager.GetString("SetPasswordEmailSubject", resourceCulture);
+            }
+        }
+        
+        internal static string SetPasswordEmailBody {
+            get {
+                return ResourceManager.GetString("SetPasswordEmailBody", resourceCulture);
+            }
+        }
+        
+        internal static string UserCreatedEmailSent {
+            get {
+                return ResourceManager.GetString("UserCreatedEmailSent", resourceCulture);
+            }
+        }
+        
+        internal static string EmailNotSentButSaved {
+            get {
+                return ResourceManager.GetString("EmailNotSentButSaved", resourceCulture);
+            }
+        }
+        
+        internal static string EmailNotSentNorSaved {
+            get {
+                return ResourceManager.GetString("EmailNotSentNorSaved", resourceCulture);
+            }
+        }
     }
 }
