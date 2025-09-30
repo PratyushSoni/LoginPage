@@ -21,9 +21,9 @@ namespace LoginPageWebApp.Pages
                 Response.Redirect("~/Pages/Login.aspx");
                 return;
             }
-            // Require Admin role
+            // Require Admin or Manager role
             var roles = Session["Roles"] as string[];
-            if (roles == null || !roles.Contains("Admin"))
+            if (roles == null || (!roles.Contains("Admin") && !roles.Contains("Manager")))
             {
                 Response.Redirect("~/Pages/Home.aspx");
                 return;

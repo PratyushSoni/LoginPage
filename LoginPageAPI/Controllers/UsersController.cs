@@ -3,6 +3,7 @@ using LoginPageAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,12 +17,14 @@ namespace LoginPageAPI.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IMemoryCache _cache;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IConfiguration config, RoleManager<IdentityRole> roleManager)
+        public UsersController(UserManager<ApplicationUser> userManager, IConfiguration config, RoleManager<IdentityRole> roleManager, IMemoryCache cache)
         {
             _userManager = userManager;
             _config = config;
             _roleManager = roleManager;
+            _cache = cache;
         }
 
         // Generate JWT token with roles
@@ -90,6 +93,9 @@ namespace LoginPageAPI.Controllers
                 Email = user.Email
             };
 
+            // Remove user cache if exists
+            _cache.Remove($"user:{user.UserName}");
+
             return Ok(response);
         }
 
@@ -99,16 +105,21 @@ namespace LoginPageAPI.Controllers
         [Authorize]
         public async Task<IActionResult> GetUser(string username)
         {
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null) return NotFound();
-
-            var response = new UserDto
+            var cacheKey = $"user:{username}";
+            if (!_cache.TryGetValue<UserDto>(cacheKey, out var response))
             {
-                Id = user.Id,
-                Username = user.UserName,
-                Email = user.Email
-            };
+                var user = await _userManager.FindByNameAsync(username);
+                if (user == null) return NotFound();
 
+                response = new UserDto
+                {
+                    Id = user.Id,
+                    Username = user.UserName,
+                    Email = user.Email
+                };
+
+                _cache.Set(cacheKey, response, TimeSpan.FromMinutes(10));
+            }
             return Ok(response);
         }
 
@@ -158,6 +169,10 @@ namespace LoginPageAPI.Controllers
             var result = await _userManager.AddToRoleAsync(user, dto.Role);
             if (result.Succeeded)
             {
+                // Remove user cache if exists
+                _cache.Remove($"user:{user.UserName}");
+                // Remove roles cache
+                _cache.Remove("roles:list");
                 return Ok($"Role '{dto.Role}' assigned to user '{user.UserName}'.");
             }
             return BadRequest(result.Errors.Select(e => e.Description));
@@ -169,7 +184,12 @@ namespace LoginPageAPI.Controllers
         [Authorize(Policy = "RequireAdminRole")]
         public IActionResult GetRoles()
         {
-            var roles = _roleManager.Roles.Select(r => r.Name).ToList();
+            var cacheKey = "roles:list";
+            if (!_cache.TryGetValue<List<string>>(cacheKey, out var roles))
+            {
+                roles = _roleManager.Roles.Select(r => r.Name).ToList();
+                _cache.Set(cacheKey, roles, TimeSpan.FromMinutes(30));
+            }
             return Ok(roles);
         }
 
@@ -196,6 +216,28 @@ namespace LoginPageAPI.Controllers
                 // Log the exception (for now, return it in the response for debugging)
                 return StatusCode(500, new { error = ex.Message, stack = ex.StackTrace });
             }
+        }
+
+        // GET: api/users/all
+        // 🔒 Admin/Manager only
+        [HttpGet("all")]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = _userManager.Users.ToList();
+            var userList = new List<object>();
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                userList.Add(new
+                {
+                    Id = user.Id,
+                    Username = user.UserName,
+                    Email = user.Email,
+                    Roles = roles
+                });
+            }
+            return Ok(userList);
         }
     }
 }

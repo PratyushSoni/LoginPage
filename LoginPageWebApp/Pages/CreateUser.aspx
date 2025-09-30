@@ -57,17 +57,17 @@
         }
     </style>
     <div class="create-user-container">
-        <h2>Create User</h2>
+        <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, CreateUser_Heading %>" /></h2>
         <asp:Label ID="lblMessage" runat="server" CssClass="message-label" ForeColor="Red" />
         <uc:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
         <div class="form-group">
-            <asp:Label ID="lblUsername" runat="server" Text="Username:" AssociatedControlID="txtUsername" />
+            <asp:Label ID="lblUsername" runat="server" Text="<%$ Resources:SharedResource, CreateUser_Username %>" AssociatedControlID="txtUsername" />
             <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" />
         </div>
         <div class="form-group">
-            <asp:Label ID="lblEmail" runat="server" Text="Email:" AssociatedControlID="txtEmail" />
+            <asp:Label ID="lblEmail" runat="server" Text="<%$ Resources:SharedResource, CreateUser_Email %>" AssociatedControlID="txtEmail" />
             <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email" />
         </div>
-        <asp:Button ID="btnCreateUser" runat="server" Text="Create User" CssClass="btn-primary" OnClick="btnCreateUser_Click" />
+        <asp:Button ID="btnCreateUser" runat="server" Text="<%$ Resources:SharedResource, CreateUser_Button %>" CssClass="btn-primary" OnClick="btnCreateUser_Click" />
     </div>
 </asp:Content>

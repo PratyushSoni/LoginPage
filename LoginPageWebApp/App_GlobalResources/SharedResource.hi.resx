@@ -128,4 +128,28 @@
 	<data name="Welcome" xml:space="preserve">
 		<value>स्वागत है</value>
 	</data>
+	<data name="CreateUser_Heading" xml:space="preserve">
+		<value>यूज़र बनाएँ</value>
+	</data>
+	<data name="CreateUser_Username" xml:space="preserve">
+		<value>यूज़रनेम:</value>
+	</data>
+	<data name="CreateUser_Email" xml:space="preserve">
+		<value>ईमेल:</value>
+	</data>
+	<data name="CreateUser_Button" xml:space="preserve">
+		<value>यूज़र बनाएँ</value>
+	</data>
+	<data name="SetPassword_Heading" xml:space="preserve">
+		<value>पासवर्ड सेट करें</value>
+	</data>
+	<data name="SetPassword_Password" xml:space="preserve">
+		<value>पासवर्ड:</value>
+	</data>
+	<data name="SetPassword_ConfirmPassword" xml:space="preserve">
+		<value>पासवर्ड की पुष्टि करें:</value>
+	</data>
+	<data name="SetPassword_Button" xml:space="preserve">
+		<value>पासवर्ड सेट करें</value>
+	</data>
 </root>

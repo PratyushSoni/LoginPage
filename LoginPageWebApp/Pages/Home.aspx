@@ -59,6 +59,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-bottom: 10px;
         }
 
         .btn:hover {
@@ -82,5 +83,7 @@
 
         <br /><br />
         <asp:Button ID="btnCreateUser" runat="server" Text="<%$ Resources:SharedResource, CreateUser %>" OnClick="btnCreateUser_Click" CssClass="btn" Visible="false" />
+        <br />
+        <asp:Button ID="btnRoleAssignment" runat="server" Text="Role Assignment" OnClick="btnRoleAssignment_Click" CssClass="btn" Visible="false" />
     </div>
 </asp:Content>

@@ -128,4 +128,28 @@
 	<data name="Welcome" xml:space="preserve">
 		<value>Welcome</value>
 	</data>
+	<data name="CreateUser_Heading" xml:space="preserve">
+		<value>Create User</value>
+	</data>
+	<data name="CreateUser_Username" xml:space="preserve">
+		<value>Username:</value>
+	</data>
+	<data name="CreateUser_Email" xml:space="preserve">
+		<value>Email:</value>
+	</data>
+	<data name="CreateUser_Button" xml:space="preserve">
+		<value>Create User</value>
+	</data>
+	<data name="SetPassword_Heading" xml:space="preserve">
+		<value>Set Your Password</value>
+	</data>
+	<data name="SetPassword_Password" xml:space="preserve">
+		<value>Password:</value>
+	</data>
+	<data name="SetPassword_ConfirmPassword" xml:space="preserve">
+		<value>Confirm Password:</value>
+	</data>
+	<data name="SetPassword_Button" xml:space="preserve">
+		<value>Set Password</value>
+	</data>
 </root>

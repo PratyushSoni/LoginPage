@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Newtonsoft.Json;
@@ -12,12 +13,20 @@ namespace LoginPageWebApp.Pages
     public partial class RoleAssignment : Page
     {
         private static readonly string apiBaseUrl = "https://localhost:7201/api/users"; // Your API URL
+        private List<string> allRoles = new List<string>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Check if user is Admin (assume JWT is stored in Session["Token"])
-            var token = Session["Token"] as string;
-            if (string.IsNullOrEmpty(token) || !IsAdmin(token))
+            // Require login first
+            var token = Session["JwtToken"] as string;
+            if (string.IsNullOrEmpty(token))
+            {
+                Response.Redirect("~/Pages/Login.aspx");
+                return;
+            }
+            // Then require Admin role
+            var roles = Session["Roles"] as string[];
+            if (roles == null || !(roles.Contains("Admin")))
             {
                 Response.Redirect("~/Pages/AccessDenied.aspx");
                 return;
@@ -25,46 +34,60 @@ namespace LoginPageWebApp.Pages
 
             if (!IsPostBack)
             {
-                BindUsers(token);
+                RegisterAsyncTask(new PageAsyncTask(async () =>
+                {
+                    await BindUsersAndRoles(token);
+                }));
             }
         }
 
-        private bool IsAdmin(string jwtToken)
-        {
-            // Basic JWT decoding to check roles (or implement a proper JWT parser)
-            // For simplicity, just checking if token contains "Admin"
-            return jwtToken.Contains("Admin");
-        }
-
-        private async void BindUsers(string token)
+        private async Task BindUsersAndRoles(string token)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var response = await client.GetAsync(apiBaseUrl);
+                // Fetch all roles from API
+                var rolesResponse = await client.GetAsync(apiBaseUrl + "/roles");
+                if (rolesResponse.IsSuccessStatusCode)
+                {
+                    var rolesJson = await rolesResponse.Content.ReadAsStringAsync();
+                    allRoles = JsonConvert.DeserializeObject<List<string>>(rolesJson);
+                }
+                else
+                {
+                    allRoles = new List<string> { "User", "Manager", "Admin" };
+                }
+                // Fetch all users
+                var response = await client.GetAsync(apiBaseUrl + "/all");
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var users = JsonConvert.DeserializeObject<List<UserDto>>(json);
+                    var users = JsonConvert.DeserializeObject<List<UserWithRolesDto>>(json);
 
                     gvUsers.DataSource = users;
                     gvUsers.DataBind();
-
-                    // Bind roles to dropdowns
-                    var rolesResponse = await client.GetAsync($"{apiBaseUrl}/roles");
-                    var rolesJson = await rolesResponse.Content.ReadAsStringAsync();
-                    var roles = JsonConvert.DeserializeObject<List<string>>(rolesJson);
-
-                    foreach (GridViewRow row in gvUsers.Rows)
-                    {
-                        var ddlRoles = (DropDownList)row.FindControl("ddlRoles");
-                        ddlRoles.DataSource = roles;
-                        ddlRoles.DataBind();
-                    }
                 }
                 else
                 {
                     lblMessage.Text = "Failed to load users.";
+                }
+            }
+        }
+
+        protected void gvUsers_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                var user = (UserWithRolesDto)e.Row.DataItem;
+                var ddlRoles = (DropDownList)e.Row.FindControl("ddlRoles");
+                ddlRoles.DataSource = allRoles;
+                ddlRoles.DataBind();
+                if (user.Roles != null && user.Roles.Count > 0)
+                {
+                    // Prefer to select Admin, then Manager, then User if present
+                    var preferred = user.Roles.FirstOrDefault(r => allRoles.Contains(r));
+                    if (!string.IsNullOrEmpty(preferred))
+                        ddlRoles.SelectedValue = preferred;
                 }
             }
         }
@@ -77,7 +100,7 @@ namespace LoginPageWebApp.Pages
             var ddlRoles = (DropDownList)row.FindControl("ddlRoles");
             var roleName = ddlRoles.SelectedValue;
 
-            var token = Session["Token"] as string;
+            var token = Session["JwtToken"] as string;
 
             using (var client = new HttpClient())
             {
@@ -86,12 +109,15 @@ namespace LoginPageWebApp.Pages
                 var payload = new { UserId = userId, Role = roleName };
                 var content = new StringContent(JsonConvert.SerializeObject(payload), System.Text.Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync($"{apiBaseUrl}/assignrole", content);
+                var response = await client.PostAsync(apiBaseUrl + "/assignrole", content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     lblMessage.Text = $"Role '{roleName}' assigned successfully.";
-                    BindUsers(token); // Refresh grid
+                    RegisterAsyncTask(new PageAsyncTask(async () =>
+                    {
+                        await BindUsersAndRoles(token);
+                    }));
                 }
                 else
                 {
@@ -101,10 +127,11 @@ namespace LoginPageWebApp.Pages
         }
     }
 
-    public class UserDto
+    public class UserWithRolesDto
     {
         public string Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

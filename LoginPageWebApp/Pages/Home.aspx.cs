@@ -22,9 +22,13 @@ namespace LoginPageWebApp.Pages
                 lblUser.Text = username;
 
                 var roles = Session["Roles"] as string[];
-                if (roles != null && roles.Contains("Admin"))
+                if (roles != null && (roles.Contains("Admin") || roles.Contains("Manager")))
                 {
                     btnCreateUser.Visible = true;
+                }
+                if (roles != null && roles.Contains("Admin"))
+                {
+                    btnRoleAssignment.Visible = true;
                 }
             }
         }
@@ -39,6 +43,11 @@ namespace LoginPageWebApp.Pages
         protected void btnCreateUser_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Pages/CreateUser.aspx");
+        }
+
+        protected void btnRoleAssignment_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/RoleAssignment.aspx");
         }
     }
 }

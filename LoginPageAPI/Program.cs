@@ -41,8 +41,10 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAdminRole", policy =>
-        policy.RequireRole("Admin"));
+        policy.RequireRole("Admin", "Manager"));
 });
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
 
