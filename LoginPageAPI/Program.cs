@@ -1,5 +1,7 @@
 ﻿using LoginPageAPI.Data;
 using LoginPageAPI.Models;
+using LoginPageAPI.Services;
+using LoginPageAPI.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 // 🔹 JWT setup
 var jwtSettings = builder.Configuration.GetSection("Jwt");
+builder.Services.Configure<JwtOptions>(jwtSettings); // <-- Ensure JwtOptions is bound
+builder.Services.AddScoped<ITokenService, TokenService>();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,7 +50,6 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddMemoryCache();
-
 builder.Services.AddControllers();
 
 var app = builder.Build();

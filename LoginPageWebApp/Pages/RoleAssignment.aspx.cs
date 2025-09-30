@@ -34,6 +34,8 @@ namespace LoginPageWebApp.Pages
 
             if (!IsPostBack)
             {
+                // Set the localized title
+                litRoleAssignmentTitle.Text = GetGlobalResourceObject("SharedResource", "RoleAssignmentTitle")?.ToString() ?? "Role Assignment";
                 RegisterAsyncTask(new PageAsyncTask(async () =>
                 {
                     await BindUsersAndRoles(token);

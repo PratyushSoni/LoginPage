@@ -224,7 +224,6 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Controls\UserDetailsDropdown.ascx" />
     <Content Include="Controls\ValidationSummaryReusable.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -334,13 +333,6 @@
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\UserDetailsDropdown.ascx.cs">
-      <DependentUpon>UserDetailsDropdown.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\UserDetailsDropdown.ascx.designer.cs">
-      <DependentUpon>UserDetailsDropdown.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ValidationSummaryReusable.ascx.cs">
       <DependentUpon>ValidationSummaryReusable.ascx</DependentUpon>

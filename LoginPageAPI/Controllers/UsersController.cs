@@ -1,11 +1,11 @@
 ﻿using LoginPageAPI.DTOs;
 using LoginPageAPI.Models;
+using LoginPageAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
 namespace LoginPageAPI.Controllers
@@ -15,49 +15,18 @@ namespace LoginPageAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IConfiguration _config;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMemoryCache _cache;
+        private readonly ITokenService _tokenService;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(UserManager<ApplicationUser> userManager, IConfiguration config, RoleManager<IdentityRole> roleManager, IMemoryCache cache)
+        public UsersController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IMemoryCache cache, ITokenService tokenService, ILogger<UsersController> logger)
         {
             _userManager = userManager;
-            _config = config;
             _roleManager = roleManager;
             _cache = cache;
-        }
-
-        // Generate JWT token with roles
-        private async Task<string> GenerateJwtToken(ApplicationUser user)
-        {
-            var jwtSettings = _config.GetSection("Jwt");
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtSettings["Key"]!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName ?? ""),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email ?? ""),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            // Add roles
-            var roles = await _userManager.GetRolesAsync(user);
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var token = new JwtSecurityToken(
-                issuer: jwtSettings["Issuer"],
-                audience: jwtSettings["Audience"],
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpireMinutes"]!)),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            _tokenService = tokenService;
+            _logger = logger;
         }
 
         // POST: api/users/create
@@ -130,19 +99,28 @@ namespace LoginPageAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var user = await _userManager.FindByNameAsync(dto.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, dto.Password))
+            if (user == null)
             {
-                var token = await GenerateJwtToken(user);
-                return Ok(new
-                {
-                    token,
-                    username = user.UserName,
-                    email = user.Email,
-                    roles = await _userManager.GetRolesAsync(user)
-                });
+                _logger.LogWarning("Login failed: user '{Username}' not found.", dto.Username);
+                return Unauthorized("Invalid username or password");
             }
 
-            return Unauthorized("Invalid username or password");
+            var passwordValid = await _userManager.CheckPasswordAsync(user, dto.Password);
+            if (!passwordValid)
+            {
+                _logger.LogWarning("Login failed: invalid password for user '{Username}'.", dto.Username);
+                return Unauthorized("Invalid username or password");
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = await _tokenService.GenerateJwtTokenAsync(user, roles);
+            return Ok(new
+            {
+                token,
+                username = user.UserName,
+                email = user.Email,
+                roles
+            });
         }
 
         // POST: api/users/assignrole

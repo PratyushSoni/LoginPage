@@ -90,19 +90,19 @@
 		<value>text/microsoft-resx</value>
 	</resheader>
 	<resheader name="version">
-		<value>1.3</value>
+		<value>2.0</value>
 	</resheader>
 	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value>
 	</resheader>
 	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value>
 	</resheader>
 	<data name="SignIn" xml:space="preserve">
 		<value>साइन इन करें</value>
 	</data>
 	<data name="Username" xml:space="preserve">
-		<value>यूज़रनेम</value>
+		<value>उपयोगकर्ता नाम</value>
 	</data>
 	<data name="Password" xml:space="preserve">
 		<value>पासवर्ड</value>
@@ -151,5 +151,20 @@
 	</data>
 	<data name="SetPassword_Button" xml:space="preserve">
 		<value>पासवर्ड सेट करें</value>
+	</data>
+	<data name="Email" xml:space="preserve">
+		<value>ईमेल</value>
+	</data>
+	<data name="Role" xml:space="preserve">
+		<value>भूमिका</value>
+	</data>
+	<data name="Action" xml:space="preserve">
+		<value>क्रिया</value>
+	</data>
+	<data name="AssignRole" xml:space="preserve">
+		<value>भूमिका असाइन करें</value>
+	</data>
+	<data name="RoleAssignmentTitle" xml:space="preserve">
+		<value>भूमिका असाइनमेंट</value>
 	</data>
 </root>

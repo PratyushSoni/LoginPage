@@ -152,4 +152,19 @@
 	<data name="SetPassword_Button" xml:space="preserve">
 		<value>Définir le mot de passe</value>
 	</data>
+	<data name="Email" xml:space="preserve">
+		<value>Email</value>
+	</data>
+	<data name="Role" xml:space="preserve">
+		<value>Rôle</value>
+	</data>
+	<data name="Action" xml:space="preserve">
+		<value>Action</value>
+	</data>
+	<data name="AssignRole" xml:space="preserve">
+		<value>Attribuer un rôle</value>
+	</data>
+	<data name="RoleAssignmentTitle" xml:space="preserve">
+		<value>Affectation de rôle</value>
+	</data>
 </root>

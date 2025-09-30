@@ -1,13 +1,10 @@
 ﻿using LoginPageAPI.Auth;
 using LoginPageAPI.DTOs;
 using LoginPageAPI.Models;
+using LoginPageAPI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace LoginPageAPI.Controllers
 {
@@ -17,16 +14,16 @@ namespace LoginPageAPI.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly JwtOptions _jwtOptions;
+        private readonly ITokenService _tokenService;
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<JwtOptions> jwtOptions)
+            ITokenService tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _jwtOptions = jwtOptions.Value;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -38,30 +35,9 @@ namespace LoginPageAPI.Controllers
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
             if (!result.Succeeded) return Unauthorized("Invalid username or password");
 
-            var token = GenerateJwtToken(user);
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = await _tokenService.GenerateJwtTokenAsync(user, roles);
             return Ok(new { token });
-        }
-
-        private string GenerateJwtToken(ApplicationUser user)
-        {
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _jwtOptions.Issuer,
-                audience: _jwtOptions.Audience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(_jwtOptions.ExpireMinutes),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

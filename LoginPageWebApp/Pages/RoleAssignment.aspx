@@ -29,20 +29,20 @@
         }
     </style>
     <div class="role-assignment-container">
-        <h2>Role Assignment</h2>
+        <h2><asp:Literal runat="server" ID="litRoleAssignmentTitle" /></h2>
         <asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
         <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered mt-3" OnRowDataBound="gvUsers_RowDataBound">
             <Columns>
-                <asp:BoundField DataField="Username" HeaderText="Username" />
-                <asp:BoundField DataField="Email" HeaderText="Email" />
-                <asp:TemplateField HeaderText="Role">
+                <asp:BoundField DataField="Username" HeaderText="<%$ Resources:SharedResource, Username %>" />
+                <asp:BoundField DataField="Email" HeaderText="<%$ Resources:SharedResource, Email %>" />
+                <asp:TemplateField HeaderText="<%$ Resources:SharedResource, Role %>">
                     <ItemTemplate>
                         <asp:DropDownList ID="ddlRoles" runat="server"></asp:DropDownList>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Action">
+                <asp:TemplateField HeaderText="<%$ Resources:SharedResource, Action %>">
                     <ItemTemplate>
-                        <asp:Button ID="btnAssign" runat="server" Text="Assign Role"
+                        <asp:Button ID="btnAssign" runat="server" Text="<%$ Resources:SharedResource, AssignRole %>"
                             CommandArgument='<%# Eval("Id") %>' OnClick="btnAssign_Click" CssClass="btn btn-primary" />
                     </ItemTemplate>
                 </asp:TemplateField>

@@ -25,7 +25,7 @@ namespace LoginPageWebApp.Pages
             var roles = Session["Roles"] as string[];
             if (roles == null || (!roles.Contains("Admin") && !roles.Contains("Manager")))
             {
-                Response.Redirect("~/Pages/Home.aspx");
+                Response.Redirect("~/Pages/AccessDenied.aspx");
                 return;
             }
             // Only clear errors on first load, not on every postback
@@ -114,7 +114,7 @@ namespace LoginPageWebApp.Pages
             // Generate a unique token
             string token = Guid.NewGuid().ToString();
 
-            // Store the token, username, and email in Session (for demo; use DB in production)
+            // Store the token, username, and email in Session
             string sessionValue = username + "|" + email;
             Session["SetPasswordToken_" + token] = sessionValue;
 

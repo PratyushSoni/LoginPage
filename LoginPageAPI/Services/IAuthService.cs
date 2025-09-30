@@ -1,6 +1,9 @@
-﻿namespace LoginPageAPI.Services
+﻿using System.Threading.Tasks;
+
+namespace LoginPageAPI.Services
 {
-    public class IAuthService
+    public interface IAuthService
     {
+        Task<string?> LoginAsync(string username, string password);
     }
 }
