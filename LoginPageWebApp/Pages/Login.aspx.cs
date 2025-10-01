@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using System.Web.Security;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Web.UI.WebControls;
-using System.IdentityModel.Tokens.Jwt; // Only this is needed for JWT parsing
-using System.Linq;
+using System.Web.UI;
 
 namespace LoginPageWebApp.Pages
 {
-    public partial class Login : Page
+    public partial class Login : System.Web.UI.Page
     {
         private static readonly HttpClient httpClient = new HttpClient();
 
@@ -65,17 +63,45 @@ namespace LoginPageWebApp.Pages
             {
                 Response.Redirect("~/Pages/Home.aspx");
             }
+            if (!IsPostBack)
+            {
+                ValidationSummary1.ClearErrors();
+            }
         }
 
         protected async void btnLogin_Click(object sender, EventArgs e)
         {
             ValidationSummary1.ClearErrors();
-            ValidationSummary1.ValidatePage();
-            if (!ValidationSummary1.PageIsValid) return;
 
-            var username = txtUsername.Text.Trim();
-            var password = txtPassword.Text.Trim();
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
+            // Validate required fields
+            bool hasError = false;
+
+            if (string.IsNullOrEmpty(username))
+            {
+                ValidationSummary1.AddError(GetLocalResource("UsernameRequired", "Username is required."), txtUsername.ClientID);
+                hasError = true;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                ValidationSummary1.AddError(GetLocalResource("PasswordRequired", "Password is required."), txtPassword.ClientID);
+                hasError = true;
+            }
+
+            // Focus on the first invalid field
+            if (hasError)
+            {
+                if (string.IsNullOrEmpty(username))
+                    txtUsername.Focus();
+                else
+                    txtPassword.Focus();
+                return;
+            }
+
+            // Call API for login
             var payload = new { Username = username, Password = password };
             var json = JsonConvert.SerializeObject(payload);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -86,16 +112,7 @@ namespace LoginPageWebApp.Pages
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    // Only add to built-in ValidationSummary
-                    var cv = new CustomValidator
-                    {
-                        IsValid = false,
-                        ErrorMessage = "Username or password is incorrect.",
-                        Display = ValidatorDisplay.None,
-                        EnableClientScript = false,
-                        ControlToValidate = txtUsername.ID
-                    };
-                    Page.Validators.Add(cv);
+                    ValidationSummary1.AddError(GetLocalResource("SignInFailed", "Username or password is incorrect."), txtUsername.ClientID);
                     txtUsername.Focus();
                     return;
                 }
@@ -108,31 +125,33 @@ namespace LoginPageWebApp.Pages
                 string email = result["email"]?.ToString();
                 var roles = result["roles"] != null ? result["roles"].ToObject<string[]>() : new string[0];
 
-                // Store in Session
+                // Store in session
                 Session["JwtToken"] = token;
                 Session["Username"] = user;
                 Session["Email"] = email;
                 Session["Roles"] = roles;
 
-                // Mark user as authenticated for WebForms
                 FormsAuthentication.SetAuthCookie(user, false);
 
-                // Redirect safely
                 Response.Redirect("~/Pages/Home.aspx", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
             catch (Exception ex)
             {
-                var cv = new CustomValidator
-                {
-                    IsValid = false,
-                    ErrorMessage = "Error: " + ex.Message,
-                    Display = ValidatorDisplay.None,
-                    EnableClientScript = false,
-                    ControlToValidate = txtUsername.ID
-                };
-                Page.Validators.Add(cv);
+                ValidationSummary1.AddError(GetLocalResource("SignInFailed", "Error: " + ex.Message), txtUsername.ClientID);
                 txtUsername.Focus();
+            }
+        }
+
+        private string GetLocalResource(string key, string fallback)
+        {
+            try
+            {
+                return (string)GetGlobalResourceObject("SharedResource", key) ?? fallback;
+            }
+            catch
+            {
+                return fallback;
             }
         }
     }

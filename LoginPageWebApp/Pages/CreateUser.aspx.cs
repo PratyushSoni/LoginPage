@@ -1,18 +1,18 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LoginPageWebApp.Pages
 {
-    public partial class CreateUser : System.Web.UI.Page
+    public partial class CreateUser : Page
     {
+        private static readonly HttpClient httpClient = new HttpClient();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // Require login
@@ -21,6 +21,7 @@ namespace LoginPageWebApp.Pages
                 Response.Redirect("~/Pages/Login.aspx");
                 return;
             }
+
             // Require Admin or Manager role
             var roles = Session["Roles"] as string[];
             if (roles == null || (!roles.Contains("Admin") && !roles.Contains("Manager")))
@@ -28,104 +29,99 @@ namespace LoginPageWebApp.Pages
                 Response.Redirect("~/Pages/AccessDenied.aspx");
                 return;
             }
-            // Only clear errors on first load, not on every postback
+
             if (!IsPostBack)
             {
                 ValidationSummary1.ClearErrors();
-                lblMessage.Text = string.Empty;
             }
-            // Always set the username and email textbox ClientIDs for JS focus
-            ValidationSummary1.TargetControlClientID = txtUsername.ClientID + ',' + txtEmail.ClientID;
         }
 
         protected async void btnCreateUser_Click(object sender, EventArgs e)
         {
-            // Clear previous validation errors
+            // Clear previous messages and validation errors
             ValidationSummary1.ClearErrors();
-            ValidationSummary1.Visible = false;
             lblMessage.Text = string.Empty;
 
             string username = txtUsername.Text.Trim();
             string email = txtEmail.Text.Trim();
 
-            // Basic validation
+            // Server-side required field validation
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email))
             {
                 if (string.IsNullOrEmpty(username))
-                    AddValidationError("Username is required.", txtUsername.ID);
+                    ValidationSummary1.AddError(GetLocalResource("UsernameRequired", "Username is required."));
                 if (string.IsNullOrEmpty(email))
-                    AddValidationError("Email is required.", txtEmail.ID);
-                if (string.IsNullOrEmpty(username)) txtUsername.Focus();
-                else if (string.IsNullOrEmpty(email)) txtEmail.Focus();
+                    ValidationSummary1.AddError(GetLocalResource("EmailRequired", "Email is required."));
+
                 return;
             }
 
-            // Check if username and/or email already exist via API (with JWT token)
+            // Check if username/email already exist via API
             try
             {
                 using (var client = new HttpClient())
                 {
-                    var apiUrl = $"https://localhost:7201/api/users/check?username={Uri.EscapeDataString(username)}&email={Uri.EscapeDataString(email)}";
                     string jwt = Session["JwtToken"] as string;
                     if (!string.IsNullOrEmpty(jwt))
                         client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", jwt);
+
+                    var apiUrl = $"https://localhost:7201/api/users/check?username={Uri.EscapeDataString(username)}&email={Uri.EscapeDataString(email)}";
                     var response = await client.GetAsync(apiUrl);
+
                     if (!response.IsSuccessStatusCode)
                     {
                         var errorContent = await response.Content.ReadAsStringAsync();
                         string errorMsg = $"Could not verify username/email uniqueness. Status: {response.StatusCode}.";
                         if (!string.IsNullOrWhiteSpace(errorContent))
                             errorMsg += $" Details: {errorContent}";
-                        AddValidationError(errorMsg);
+                        ValidationSummary1.AddError(errorMsg);
                         return;
                     }
+
                     var result = await response.Content.ReadAsStringAsync();
-                    // Assume API returns: { "usernameExists": true/false, "emailExists": true/false }
                     dynamic exists = JsonConvert.DeserializeObject(result);
+
                     bool usernameExists = exists.usernameExists == true;
                     bool emailExists = exists.emailExists == true;
+
                     if (usernameExists && emailExists)
                     {
-                        AddValidationError("Username and email already exist. Please choose a different username and email.", txtUsername.ID);
-                        txtUsername.Focus();
+                        ValidationSummary1.AddError(GetLocalResource("UsernameAndEmailExist", "Username and email already exist. Please choose a different username and email."));
                         return;
                     }
                     else if (usernameExists)
                     {
-                        AddValidationError("User already exists. Please choose a different username.", txtUsername.ID);
-                        txtUsername.Focus();
+                        ValidationSummary1.AddError(GetLocalResource("UsernameExists", "User already exists. Please choose a different username."));
                         return;
                     }
                     else if (emailExists)
                     {
-                        AddValidationError("Email already exists. Please choose a different email.", txtEmail.ID);
-                        txtEmail.Focus();
+                        ValidationSummary1.AddError(GetLocalResource("EmailExists", "Email already exists. Please choose a different email."));
                         return;
                     }
                 }
             }
             catch (Exception ex)
             {
-                AddValidationError("Could not check user existence: " + ex.Message, txtUsername.ID);
-                txtUsername.Focus();
+                ValidationSummary1.AddError(GetLocalResource("UserCheckException", "Could not check user existence: ") + ex.Message);
                 return;
             }
 
-            // Generate a unique token
+            // Generate a unique token for password setup
             string token = Guid.NewGuid().ToString();
+            Session["SetPasswordToken_" + token] = $"{username}|{email}";
 
-            // Store the token, username, and email in Session
-            string sessionValue = username + "|" + email;
-            Session["SetPasswordToken_" + token] = sessionValue;
-
-            // Build the set password link
             string setPasswordUrl = $"{Request.Url.GetLeftPart(UriPartial.Authority)}/Pages/SetPassword.aspx?token={token}";
 
-            // Compose the email
+            // Compose email
             var mail = new MailMessage("no-reply@yourapp.com", email)
             {
-                Subject = "Set your password",
-                Body = $"Hello {username},\n\nPlease set your password by clicking the link below:\n{setPasswordUrl}\n\nIf you did not request this, ignore this email."
+                Subject = GetLocalResource("SetPasswordEmailSubject", "Set your password"),
+                Body = string.Format(
+                    GetLocalResource(
+                        "SetPasswordEmailBody",
+                        "Hello {0},\n\nPlease set your password by clicking the link below:\n{1}\n\nIf you did not request this, ignore this email."),
+                    username, setPasswordUrl)
             };
 
             try
@@ -134,7 +130,8 @@ namespace LoginPageWebApp.Pages
                 {
                     smtp.Send(mail);
                 }
-                // Save as .txt if email sending succeeds
+
+                // Save email content locally as backup
                 string txtDir = Server.MapPath("~/App_Data/");
                 if (!Directory.Exists(txtDir)) Directory.CreateDirectory(txtDir);
                 string txtPath = Path.Combine(txtDir, $"SetPassword_{Guid.NewGuid()}.txt");
@@ -142,12 +139,14 @@ namespace LoginPageWebApp.Pages
 
                 lblMessage.ForeColor = System.Drawing.Color.Green;
                 lblMessage.Text = $"User created and email sent! Email content saved at: {txtPath}";
-                // Clear errors on success
+
+                // Clear input fields
+                txtUsername.Text = txtEmail.Text = string.Empty;
                 ValidationSummary1.ClearErrors();
             }
             catch (Exception ex)
             {
-                // Save as .txt if email sending fails
+                // Save email locally if sending fails
                 string txtDir = Server.MapPath("~/App_Data/");
                 if (!Directory.Exists(txtDir)) Directory.CreateDirectory(txtDir);
                 string txtPath = Path.Combine(txtDir, $"SetPassword_{Guid.NewGuid()}.txt");
@@ -165,16 +164,16 @@ namespace LoginPageWebApp.Pages
             }
         }
 
-        protected void AddValidationError(string message, string controlId = null)
+
+        private string GetLocalResource(string key, string fallback)
         {
-            ValidationSummary1.Visible = true;
-            ValidationSummary1.AddError(message);
-            if (!string.IsNullOrEmpty(controlId))
+            try
             {
-                // Find the control and set focus
-                Control control = FindControl(controlId);
-                if (control != null)
-                    ScriptManager.RegisterStartupScript(control, control.GetType(), "setFocus", "this.focus();", true);
+                return (string)GetGlobalResourceObject("SharedResource", key) ?? fallback;
+            }
+            catch
+            {
+                return fallback;
             }
         }
     }

@@ -224,4 +224,10 @@ If you did not request this, ignore this email.</value>
   <data name="EmailNotSentNorSaved" xml:space="preserve">
     <value>Email could not be sent and could not be saved as text. Error: {0}</value>
   </data>
+  <data name="SignInFailed" xml:space="preserve">
+    <value>Username or password is incorrect.</value>
+  </data>
+  <data name="ValidationSummaryHeader" xml:space="preserve">
+    <value>Please fix the following errors:</value>
+  </data>
 </root>

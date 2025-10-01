@@ -18,40 +18,32 @@
             margin-bottom: 3px;
             text-decoration: underline;
         }
+
+    .summary-header {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 </style>
 
-<asp:Panel ID="pnlValidationSummary" runat="server" CssClass="validation-summary-container" Visible="true">
-    <asp:Label ID="lblHeader" runat="server" Text="Please fix the following errors:" CssClass="summary-header" />
+<asp:Panel ID="pnlValidationSummary" runat="server" CssClass="validation-summary-container" Visible="false">
+    <asp:Label ID="lblHeader" runat="server" Text="<%$ Resources:SharedResource, ValidationSummaryHeader %>" CssClass="summary-header" />
     <ul id="ulValidationSummary" runat="server"></ul>
     <asp:CustomValidator ID="cvServerError" runat="server" Display="None" EnableClientScript="false" />
 </asp:Panel>
 
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-        var ul = document.getElementById('<%= ulValidationSummary.ClientID %>');
-        var controlIds = '<%= TargetControlClientID %>'.split(',');
-        var usernameInputId = controlIds[0];
-        var emailInputId = controlIds.length > 1 ? controlIds[1] : null;
-        if (ul) {
-            ul.addEventListener('click', function (e) {
-                var li = e.target;
-                if (li.tagName === 'LI') {
-                    var text = li.textContent || li.innerText || '';
-                    if (text.toLowerCase().indexOf('email') !== -1 && emailInputId) {
-                        var emailInput = document.getElementById(emailInputId);
-                        if (emailInput) {
-                            emailInput.focus();
-                            emailInput.scrollIntoView({ behavior: "smooth", block: "center" });
-                        }
-                    } else if (usernameInputId) {
-                        var usernameInput = document.getElementById(usernameInputId);
-                        if (usernameInput) {
-                            usernameInput.focus();
-                            usernameInput.scrollIntoView({ behavior: "smooth", block: "center" });
-                        }
-                    }
-                }
-            });
+document.addEventListener('DOMContentLoaded', function () {
+    var ul = document.getElementById('<%= ulValidationSummary.ClientID %>');
+    if (!ul) return;
+
+    ul.addEventListener('click', function(e) {
+        if (e.target.tagName === 'LI') {
+            var targetId = e.target.getAttribute('data-target');
+            if (targetId) {
+                var ctrl = document.getElementById(targetId);
+                if (ctrl) ctrl.focus();
+            }
         }
     });
+});
 </script>

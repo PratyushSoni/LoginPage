@@ -224,4 +224,10 @@
   <data name="EmailNotSentNorSaved" xml:space="preserve">
     <value>ईमेल नहीं भेजा जा सका और न ही टेक्स्ट के रूप में सहेजा जा सका। त्रुटि: {0}</value>
   </data>
+  <data name="SignInFailed" xml:space="preserve">
+    <value>यूज़रनेम या पासवर्ड गलत है।</value>
+  </data>
+  <data name="ValidationSummaryHeader" xml:space="preserve">
+    <value>कृपया निम्न त्रुटियों को ठीक करें:</value>
+  </data>
 </root>

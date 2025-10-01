@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.master" Async="true" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LoginPageWebApp.Pages.Login" %>
-
 <%@ Register Src="~/Controls/ValidationSummaryReusable.ascx" TagPrefix="uc1" TagName="ValidationSummaryReusable" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -7,119 +6,121 @@
         html, body {
             height: 100%;
             margin: 0;
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             background: #f5f6fa;
         }
 
         .login-container {
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
         }
 
         .login-box {
             width: 360px;
-            padding: 28px;
             background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            padding: 30px 28px;
             border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
         .login-box h2 {
-                text-align: center;
-                margin-bottom: 18px;
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
 
         .form-group {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
-            .form-group label {
-                display: block;
-                margin-bottom: 6px;
-                font-size: 14px;
-            }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+        }
 
         .text-input {
             width: 100%;
             padding: 10px;
             font-size: 14px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
         .form-actions {
+            margin-top: 18px;
             display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
+            justify-content: center;
         }
 
         .btn {
-            padding: 8px 16px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
         }
 
         .btn-primary {
-            background: #007bff;
+            background-color: #007bff;
             color: #fff;
+            width: 100%;
         }
 
-            .btn-primary:hover {
-                opacity: 0.95;
-            }
+        .btn-primary:hover {
+            opacity: 0.95;
+        }
 
-        .text-danger {
+        .validation-summary-container {
+            margin-bottom: 12px;
+            font-size: 13px;
             color: #d9534f;
-            font-size: 12px;
+        }
+
+        .validation-summary-container ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .validation-summary-container li {
+            cursor: pointer;
+            margin-bottom: 4px;
+            text-decoration: underline;
         }
     </style>
+
     <div class="login-container">
         <div class="login-box">
             <h2>
-                <asp:Literal runat="server" Text="<%$ Resources:SharedResource, SignIn %>" /></h2>
-            <asp:ValidationSummary ID="vsServer" runat="server" ShowSummary="true" ShowMessageBox="false" CssClass="validation-summary-container" />
-            <div class="val-summary">
-                <uc1:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
-            </div>
+                <asp:Literal runat="server" Text="<%$ Resources:SharedResource, SignIn %>" />
+            </h2>
+
+            <uc1:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
+
             <div class="form-group">
-                <asp:Label ID="lblUsername" runat="server" AssociatedControlID="txtUsername" Text="<%$ Resources:SharedResource, Username %>"></asp:Label>
+                <label for="txtUsername">
+                    <asp:Literal runat="server" Text="<%$ Resources:SharedResource, Username %>" />
+                </label>
                 <asp:TextBox ID="txtUsername" runat="server" CssClass="text-input" />
-                <asp:RequiredFieldValidator ID="rfvUsername" runat="server" ControlToValidate="txtUsername"
-                    ErrorMessage="<%$ Resources:SharedResource, UsernameRequired %>" Display="None" />
             </div>
 
             <div class="form-group">
-                <asp:Label ID="lblPassword" runat="server" AssociatedControlID="txtPassword" Text="<%$ Resources:SharedResource, Password %>"></asp:Label>
+                <label for="txtPassword">
+                    <asp:Literal runat="server" Text="<%$ Resources:SharedResource, Password %>" />
+                </label>
                 <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="text-input" />
-                <asp:RequiredFieldValidator ID="rfvPassword" runat="server" ControlToValidate="txtPassword"
-                    ErrorMessage="<%$ Resources:SharedResource, PasswordRequired %>" Display="None" />
             </div>
-
 
             <div class="form-actions">
-                <asp:Button ID="btnLogin" runat="server" Text="<%$ Resources:SharedResource, Login %>" CssClass="btn btn-primary" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-primary" OnClick="btnLogin_Click" Text="<%$ Resources:SharedResource, SignIn %>" />
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            var summary = document.getElementById('<%= vsServer.ClientID %>');
-            if (summary) {
-                summary.addEventListener('click', function (e) {
-                    if (e.target && e.target.tagName === 'LI') {
-                        var username = document.getElementById('<%= txtUsername.ClientID %>');
-                        if (username) {
-                            username.focus();
-                            username.scrollIntoView({ behavior: "smooth", block: "center" });
-                        }
-                    }
-                });
-            }
-        });
-    </script>
 </asp:Content>

@@ -133,6 +133,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email already exists. Please choose a different email..
+        /// </summary>
+        internal static string EmailExists {
+            get {
+                return ResourceManager.GetString("EmailExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email could not be sent. Email content saved at: {0}.
+        /// </summary>
+        internal static string EmailNotSentButSaved {
+            get {
+                return ResourceManager.GetString("EmailNotSentButSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email could not be sent and could not be saved as text. Error: {0}.
+        /// </summary>
+        internal static string EmailNotSentNorSaved {
+            get {
+                return ResourceManager.GetString("EmailNotSentNorSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required.
+        /// </summary>
+        internal static string EmailRequired {
+            get {
+                return ResourceManager.GetString("EmailRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home Page.
         /// </summary>
         internal static string Home_Page {
@@ -187,6 +223,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hello {0},
+        ///
+        ///Please set your password by clicking the link below:
+        ///{1}
+        ///
+        ///If you did not request this, ignore this email..
+        /// </summary>
+        internal static string SetPasswordEmailBody {
+            get {
+                return ResourceManager.GetString("SetPasswordEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set your password.
+        /// </summary>
+        internal static string SetPasswordEmailSubject {
+            get {
+                return ResourceManager.GetString("SetPasswordEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Password.
         /// </summary>
         internal static string SetPassword_Button {
@@ -232,11 +291,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username or password is incorrect..
+        /// </summary>
+        internal static string SignInFailed {
+            get {
+                return ResourceManager.GetString("SignInFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign Out.
         /// </summary>
         internal static string SignOut {
             get {
                 return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not verify username/email uniqueness. Status: {0}..
+        /// </summary>
+        internal static string UserCheckError {
+            get {
+                return ResourceManager.GetString("UserCheckError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not check user existence: {0}.
+        /// </summary>
+        internal static string UserCheckException {
+            get {
+                return ResourceManager.GetString("UserCheckException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User created and email sent! Email content saved at: {0}.
+        /// </summary>
+        internal static string UserCreatedEmailSent {
+            get {
+                return ResourceManager.GetString("UserCreatedEmailSent", resourceCulture);
             }
         }
         
@@ -250,6 +345,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username and email already exist. Please choose a different username and email..
+        /// </summary>
+        internal static string UsernameAndEmailExist {
+            get {
+                return ResourceManager.GetString("UsernameAndEmailExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User already exists. Please choose a different username..
+        /// </summary>
+        internal static string UsernameExists {
+            get {
+                return ResourceManager.GetString("UsernameExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username is required.
         /// </summary>
         internal static string UsernameRequired {
@@ -259,77 +372,20 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please fix the following errors:.
+        /// </summary>
+        internal static string ValidationSummaryHeader {
+            get {
+                return ResourceManager.GetString("ValidationSummaryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome.
         /// </summary>
         internal static string Welcome {
             get {
                 return ResourceManager.GetString("Welcome", resourceCulture);
-            }
-        }
-        
-        internal static string EmailRequired {
-            get {
-                return ResourceManager.GetString("EmailRequired", resourceCulture);
-            }
-        }
-        
-        internal static string UserCheckError {
-            get {
-                return ResourceManager.GetString("UserCheckError", resourceCulture);
-            }
-        }
-        
-        internal static string UsernameAndEmailExist {
-            get {
-                return ResourceManager.GetString("UsernameAndEmailExist", resourceCulture);
-            }
-        }
-        
-        internal static string UsernameExists {
-            get {
-                return ResourceManager.GetString("UsernameExists", resourceCulture);
-            }
-        }
-        
-        internal static string EmailExists {
-            get {
-                return ResourceManager.GetString("EmailExists", resourceCulture);
-            }
-        }
-        
-        internal static string UserCheckException {
-            get {
-                return ResourceManager.GetString("UserCheckException", resourceCulture);
-            }
-        }
-        
-        internal static string SetPasswordEmailSubject {
-            get {
-                return ResourceManager.GetString("SetPasswordEmailSubject", resourceCulture);
-            }
-        }
-        
-        internal static string SetPasswordEmailBody {
-            get {
-                return ResourceManager.GetString("SetPasswordEmailBody", resourceCulture);
-            }
-        }
-        
-        internal static string UserCreatedEmailSent {
-            get {
-                return ResourceManager.GetString("UserCreatedEmailSent", resourceCulture);
-            }
-        }
-        
-        internal static string EmailNotSentButSaved {
-            get {
-                return ResourceManager.GetString("EmailNotSentButSaved", resourceCulture);
-            }
-        }
-        
-        internal static string EmailNotSentNorSaved {
-            get {
-                return ResourceManager.GetString("EmailNotSentNorSaved", resourceCulture);
             }
         }
     }
