@@ -230,4 +230,10 @@ Si vous n'avez pas demandé cela, ignorez cet e-mail.</value>
   <data name="ValidationSummaryHeader" xml:space="preserve">
     <value>Veuillez corriger les erreurs suivantes :</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Tableau de bord</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
 </root>

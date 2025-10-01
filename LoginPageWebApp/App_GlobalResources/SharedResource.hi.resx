@@ -193,13 +193,13 @@
     <value>यूज़रनेम/ईमेल की विशिष्टता सत्यापित नहीं की जा सकी। स्थिति: {0}।</value>
   </data>
   <data name="UsernameAndEmailExist" xml:space="preserve">
-    <value>यूज़रनेम और ईमेल पहले से मौजूद हैं। कृपया एक अलग यूज़रनेम और ईमेल चुनें।</value>
+    <value>यूज़रनेम और ईमेल पहले से मौजूद हैं। कृपया एक अलग यूज़रनेम और ईमेल चयन करें।</value>
   </data>
   <data name="UsernameExists" xml:space="preserve">
-    <value>यूज़र पहले से मौजूद है। कृपया एक अलग यूज़रनेम चुनें।</value>
+    <value>यूज़र पहले से मौजूद है। कृपया एक अलग यूज़रनेम चयन करें।</value>
   </data>
   <data name="EmailExists" xml:space="preserve">
-    <value>ईमेल पहले से मौजूद है। कृपया एक अलग ईमेल चुनें।</value>
+    <value>ईमेल पहले से मौजूद है। कृपया एक अलग ईमेल चयन करें।</value>
   </data>
   <data name="UserCheckException" xml:space="preserve">
     <value>यूज़र की उपस्थिति सत्यापित नहीं की जा सकी: {0}</value>
@@ -229,5 +229,11 @@
   </data>
   <data name="ValidationSummaryHeader" xml:space="preserve">
     <value>कृपया निम्न त्रुटियों को ठीक करें:</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>डैशबोर्ड</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>होम</value>
   </data>
 </root>

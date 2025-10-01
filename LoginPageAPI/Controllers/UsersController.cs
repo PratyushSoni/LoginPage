@@ -141,5 +141,31 @@ namespace LoginPageAPI.Controllers
             }
             return Ok(userList);
         }
+
+        // DELETE: api/users/delete?input=...
+        // 🔒 Admin-only
+        [HttpDelete("delete")]
+        [Authorize(Policy = "RequireAdminRole")]
+        public async Task<IActionResult> DeleteUser([FromQuery] string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return BadRequest("Username or email is required.");
+
+            ApplicationUser user = null;
+            if (input.Contains("@"))
+                user = await _userManager.FindByEmailAsync(input);
+            else
+                user = await _userManager.FindByNameAsync(input);
+
+            if (user == null)
+                return NotFound("User not found.");
+
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            _cache.Remove($"user:{user.UserName}");
+            return Ok(new { message = "User deleted successfully." });
+        }
     }
 }

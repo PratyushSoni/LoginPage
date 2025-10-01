@@ -42,6 +42,18 @@ namespace LoginPageWebApp
             {
                 ddlLanguage.SelectedValue = Session["CurrentCulture"].ToString();
             }
+
+            // Hide or disable Home link on Login page
+            string currentPath = Request.AppRelativeCurrentExecutionFilePath.ToLowerInvariant();
+            if (currentPath.Contains("/pages/login.aspx"))
+            {
+                var homeLink = FindControlRecursive(this, "navbarHomeLink") as System.Web.UI.HtmlControls.HtmlAnchor;
+                if (homeLink != null)
+                {
+                    homeLink.HRef = "#";
+                    homeLink.Attributes["style"] = "pointer-events:none;opacity:0.5;";
+                }
+            }
         }
 
         private void ShowAdminLink()
@@ -62,6 +74,18 @@ namespace LoginPageWebApp
             var selectedLang = ddlLanguage.SelectedValue;
             Session["CurrentCulture"] = selectedLang;
             Response.Redirect(Request.Url.AbsoluteUri);
+        }
+
+        // Helper to find control recursively
+        private System.Web.UI.Control FindControlRecursive(System.Web.UI.Control root, string id)
+        {
+            if (root.ID == id) return root;
+            foreach (System.Web.UI.Control c in root.Controls)
+            {
+                var t = FindControlRecursive(c, id);
+                if (t != null) return t;
+            }
+            return null;
         }
     }
 }

@@ -29,6 +29,7 @@ namespace LoginPageWebApp.Pages
                 if (roles != null && roles.Contains("Admin"))
                 {
                     btnRoleAssignment.Visible = true;
+                    btnDeleteUser.Visible = true;
                 }
             }
         }
@@ -48,6 +49,11 @@ namespace LoginPageWebApp.Pages
         protected void btnRoleAssignment_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/Pages/RoleAssignment.aspx");
+        }
+
+        protected void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Pages/DeleteUser.aspx");
         }
     }
 }
