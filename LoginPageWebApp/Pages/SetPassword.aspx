@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" Async="true" CodeBehind="SetPassword.aspx.cs" Inherits="LoginPageWebApp.Pages.SetPassword" %>
+<%@ Register Src="~/Controls/ValidationSummaryReusable.ascx" TagPrefix="uc" TagName="ValidationSummaryReusable" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style>
@@ -57,7 +58,7 @@
     <div class="set-password-container">
         <h2><asp:Literal runat="server" Text="<%$ Resources:SharedResource, SetPassword_Heading %>" /></h2>
         <asp:Label ID="lblMessage" runat="server" CssClass="message-label" ForeColor="Red" />
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="message-label" ShowMessageBox="false" ShowSummary="true" />
+        <uc:ValidationSummaryReusable ID="ValidationSummary1" runat="server" />
         <div class="form-group">
             <asp:Label ID="lblPassword" runat="server" Text="<%$ Resources:SharedResource, SetPassword_Password %>" AssociatedControlID="txtPassword" />
             <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" />

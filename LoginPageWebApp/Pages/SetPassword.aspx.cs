@@ -56,7 +56,7 @@ namespace LoginPageWebApp.Pages
 
         protected async void btnSetPassword_Click(object sender, EventArgs e)
         {
-            ValidationSummary1.Controls.Clear();
+            ValidationSummary1.ClearErrors();
             ValidationSummary1.Visible = false;
             lblMessage.Text = string.Empty;
 
@@ -74,14 +74,14 @@ namespace LoginPageWebApp.Pages
 
             if (string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
             {
-                AddValidationError("Both password fields are required.");
+                AddValidationError("Both password fields are required.", txtPassword.ClientID);
                 txtPassword.Focus();
                 return;
             }
 
             if (password != confirmPassword)
             {
-                AddValidationError("Passwords do not match.");
+                AddValidationError("Passwords do not match.", txtPassword.ClientID);
                 txtPassword.Focus();
                 return;
             }
@@ -111,7 +111,7 @@ namespace LoginPageWebApp.Pages
                     if (!response.IsSuccessStatusCode)
                     {
                         var errorContent = await response.Content.ReadAsStringAsync();
-                        AddValidationError($"Could not create user. Status: {response.StatusCode}. Details: {errorContent}");
+                        AddValidationError($"Could not create user. Status: {response.StatusCode}. Details: {errorContent}", txtPassword.ClientID);
                         return;
                     }
                 }
@@ -150,21 +150,14 @@ namespace LoginPageWebApp.Pages
             }
             catch (Exception ex)
             {
-                AddValidationError("Could not create user: " + ex.Message);
+                AddValidationError("Could not create user: " + ex.Message, txtPassword.ClientID);
             }
         }
 
-        private void AddValidationError(string message)
+        private void AddValidationError(string message, string focusControlClientId = null)
         {
             ValidationSummary1.Visible = true;
-            var cv = new CustomValidator
-            {
-                IsValid = false,
-                ErrorMessage = message,
-                Display = ValidatorDisplay.None,
-                EnableClientScript = false
-            };
-            Page.Validators.Add(cv);
+            ValidationSummary1.AddError(message, focusControlClientId);
         }
 
         private void DisableForm()
